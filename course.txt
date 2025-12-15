@@ -1,0 +1,7 @@
+Code: cs11, Title: database, Units: 3
+Code: cs12, Title: program, Units: 4
+Code: cs12, Title: program, Units: 4
+cs12         | python                    |     4 | N/A
+csh11        | database                  |     4 | N/A
+cs11         | algebra                   | 4
+cnm15        | information technology    | 4

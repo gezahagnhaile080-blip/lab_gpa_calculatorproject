@@ -1,0 +1,10 @@
+Student ID: 11, Course ID: 2012, Score: 80.0, Grade: A
+Student ID: 11, Course ID: 2012, Score: 90.0, Grade: A
+Student ID: 2121, Course ID: 1212, Score: 98.0, Grade: A
+Student ID: 11, Course ID: 12, Score: 88.0, Grade: A
+Student ID: 1, Course ID: 12, Score: 90.0, Grade: A
+Student ID: 101, Course ID: 1, Score: 89.0, Grade: A
+Student ID: 1, Course ID: 1, Score: 67.0, Grade: B
+Student ID: 1, Course ID: 1, Score: 56.0, Grade: C
+Student ID: 1, Course ID: 12, Score: 90.0, Grade: A
+Student ID: 1, Course ID: 12, Score: 90.0, Grade: A

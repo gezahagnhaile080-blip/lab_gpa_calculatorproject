@@ -16,10 +16,29 @@ def load_students():
             return []
 
 
+def save():
+    """Save student details to student.txt and student.csv."""
+    name = input("Enter student's name: ")
+    department = input("Enter department: ")
+
+    students = load_students()
+    new_id = students[-1]["id"] + 1 if students else 1
+
+    # save to student.txt
+    with open("student.txt", "a") as file:
+        file.write(f"ID: {new_id}, Name: {name}, Department: {department}\n")
+
+    # save to student.csv
+    with open("student.csv", "a") as file:
+        file.write(f"{new_id},{name},{department}\n")
+
+    print(f"Student saved to student.txt and student.csv with ID {new_id}!")
+
+
 def save_students(students):
     """Save students list back to JSON file."""
-    with open(STUDENTS_FILE, "w") as f:
-        json.dump(students, f, indent=4)
+    with open(STUDENTS_FILE, "w") as file:
+        json.dump(students, file, indent=4)
 
 
 def list_students():
@@ -41,11 +60,7 @@ def register_student():
     department = input("Enter department: ")
 
     students = load_students()
-
-    if students:
-        new_id = students[-1]["id"] + 1
-    else:
-        new_id = 1
+    new_id = students[-1]["id"] + 1 if students else 1
 
     new_student = {
         "id": new_id,
@@ -57,3 +72,9 @@ def register_student():
     save_students(students)
 
     print(f"Student '{name}' registered successfully with ID {new_id}!")
+
+save()              # saves to student.txt and student.csv
+register_student()  # saves to students.json
+list_students()     # displays students
+
+

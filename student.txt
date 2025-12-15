@@ -1,0 +1,9 @@
+ID: 2, Name: geza, Department: cs
+ID: 3, Name: gezaha, Department: 
+ID: 3, Name: fre, Department: it
+ID: 4, Name: kal, Department: cs
+ID: 5, Name: & C:/Users/Admin/AppData/Local/Programs/Python/Python314/python.exe c:/Users/Admin/Desktop/GPA_CALCULATOR/gradereports/gradereport.py, Department: cs
+ID: 6, Name: geza, Department: cs
+ID: 7, Name: alem, Department: is
+ID: 8, Name: bet, Department: cs
+ID: 9, Name: fer, Department: cs

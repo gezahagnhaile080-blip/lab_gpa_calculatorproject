@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "wer",
+        "department": "cs"
+    },
+    {
+        "id": 2,
+        "name": "geza",
+        "department": "cs"
+    },
+    {
+        "id": 3,
+        "name": "red",
+        "department": "is"
+    },
+    {
+        "id": 4,
+        "name": "gr",
+        "department": "it"
+    },
+    {
+        "id": 5,
+        "name": "bet",
+        "department": "it"
+    },
+    {
+        "id": 6,
+        "name": "eredit",
+        "department": "it"
+    },
+    {
+        "id": 7,
+        "name": "nebret",
+        "department": "softengineering"
+    },
+    {
+        "id": 8,
+        "name": "meki",
+        "department": "it"
+    },
+    {
+        "id": 9,
+        "name": "dem",
+        "department": "law"
+    }
+]

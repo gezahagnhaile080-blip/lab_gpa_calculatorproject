@@ -22,6 +22,35 @@ def save_results(results):
         json.dump(results, f, indent=4)
 
 
+# ---- save() placed in the middle ----
+def save():
+    """Save student result details to result.txt and result.csv."""
+    student_id = input("Enter student ID: ")
+    course_id = input("Enter course ID: ")
+    score = input("Enter score (0–100): ")
+
+    try:
+        score = float(score)
+        if score < 0 or score > 100:
+            print("Score must be between 0 and 100!")
+            return
+    except ValueError:
+        print("Invalid score!")
+        return
+
+    grade = calculate_grade(score)
+
+    # Save to result.txt
+    with open("result.txt", "a") as file:
+        file.write(f"Student ID: {student_id}, Course ID: {course_id}, Score: {score}, Grade: {grade}\n")
+
+    # Save to result.csv
+    with open("result.csv", "a") as file:
+        file.write(f"{student_id},{course_id},{score},{grade}\n")
+
+    print(f"Result saved to result.txt and result.csv: Student {student_id} | Course {course_id} | Score {score} | Grade {grade}")
+
+
 def register_result(student_id):
     """Register a result for a student."""
     course_id = input("Enter course ID: ")
@@ -73,3 +102,5 @@ def get_results_by_student(student_id):
     """Return a list of results for the given student."""
     results = load_results()
     return [r for r in results if str(r["student_id"]) == str(student_id)]
+save()
+register_result(1)
