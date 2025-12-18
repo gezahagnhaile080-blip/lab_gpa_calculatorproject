@@ -1,8 +1,7 @@
 from students.studentservice import register_student, list_students
 from courses.courseservice import register_course, list_courses
-from results.resultservice import register_result, get_results_by_student
+from results.resultservice import register_result
 from gradereports.gradereport import calculate_gpa
-
 
 def main_menu():
     while True:
@@ -13,21 +12,25 @@ def main_menu():
         print("4. Grade Reports")
         print("5. Exit")
 
-        choice = input("Enter choice: ")
+        choice = input("Enter choice: ").strip()
 
         if choice == "1":
             print("\n--- STUDENTS ---")
             list_students()
-            register_student()
+            add_more = input("Do you want to register a new student? (y/n): ").strip().lower()
+            if add_more == "y":
+                register_student()
 
         elif choice == "2":
             print("\n--- COURSES ---")
             list_courses()
-            register_course()
+            add_more = input("Do you want to register a new course? (y/n): ").strip().lower()
+            if add_more == "y":
+                register_course()
 
         elif choice == "3":
             print("\n--- RESULTS ---")
-            sid = input("Enter student ID: ")
+            sid = input("Enter student ID: ").strip()
             register_result(sid)
 
         elif choice == "4":
@@ -35,13 +38,11 @@ def main_menu():
             calculate_gpa()
 
         elif choice == "5":
-            print("Bye!")
+            print("Exiting. Goodbye!")
             break
 
         else:
-            print("Invalid choice!")
-
+            print("Invalid choice! Please select 1-5.")
 
 if __name__ == "__main__":
     main_menu()
-

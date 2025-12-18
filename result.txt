@@ -8,3 +8,10 @@ Student ID: 1, Course ID: 1, Score: 67.0, Grade: B
 Student ID: 1, Course ID: 1, Score: 56.0, Grade: C
 Student ID: 1, Course ID: 12, Score: 90.0, Grade: A
 Student ID: 1, Course ID: 12, Score: 90.0, Grade: A
+Student ID: 1, Course ID: 1, Score: 89.0, Grade: A
+Student ID: 1, Course ID: 2, Score: 44.0, Grade: E
+Student ID: 12, Course ID: 34, Score: 23.0, Grade: F
+Student ID: 1, Course ID: cs1, Score: 90.0, Grade: A
+Student ID: 1, Course ID: cs1, Score: 78.0, Grade: A
+Student ID: 1, Course ID: ccsc1, Score: 78.0, Grade: B+
+Student ID: 11, Course ID: c1, Score: 78.0, Grade: B+

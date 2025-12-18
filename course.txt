@@ -5,3 +5,8 @@ cs12         | python                    |     4 | N/A
 csh11        | database                  |     4 | N/A
 cs11         | algebra                   | 4
 cnm15        | information technology    | 4
+cs12         | algebra                   | 4
+chm12        | statistic                 | 5
+ID:   Code: cs11         | Title: network                   | Units: 4
+ID: 2 | Code: cs12         | Title: algebra                   | Units: 3
+ID: 3 | Code: cs12         | Title: algebra                   | Units: 3

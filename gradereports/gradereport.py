@@ -1,21 +1,55 @@
-import sys
-import os
-
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
-
+import csv
 from results.resultservice import get_results_by_student
-from courses.courseservice import load_courses
-from students.studentservice import load_students
+
+STUDENTS_CSV = "student.csv"
+COURSES_CSV = "course.csv"
+GRADEREPORT_CSV = "gradereport.csv"
+GRADEREPORT_TXT = "gradereport.txt"
+
+def load_students():
+    """Load students from CSV file."""
+    students = []
+    try:
+        with open(STUDENTS_CSV, "r") as file:
+            for line in file:
+                parts = line.strip().split(",")
+                if len(parts) >= 2:
+                    students.append({"id": parts[0], "name": parts[1]})
+    except FileNotFoundError:
+        pass
+    return students
+
+def load_courses():
+    """Load courses from CSV file."""
+    courses = []
+    try:
+        with open(COURSES_CSV, "r") as file:
+            for line in file:
+                parts = line.strip().split(",")
+                if len(parts) >= 4:
+                    courses.append({
+                        "id": parts[0],
+                        "code": parts[1],
+                        "title": parts[2],
+                        "units": parts[3]
+                    })
+    except FileNotFoundError:
+        pass
+    return courses
+
+def grade_to_point(grade):
+    """Convert letter grade to GPA points."""
+    grade = grade.upper()
+    points = {"A": 4, "A-": 3.7, "B+": 3.3, "B": 3, "B-": 2.7,
+              "C+": 2.3, "C": 2, "C-": 1.7, "D": 1, "F": 0}
+    return points.get(grade, 0)
 
 def calculate_gpa():
     """Generate grade report and calculate GPA for a student."""
-
-    student_id = input("Enter student ID: ")
+    student_id = input("Enter student ID: ").strip()
     students = load_students()
-    student = next((s for s in students if str(s["id"]) == str(student_id)), None)
 
+    student = next((s for s in students if str(s["id"]) == str(student_id)), None)
     if not student:
         print("Student not found!")
         return
@@ -29,18 +63,17 @@ def calculate_gpa():
         print("No results found for this student.")
         return
 
-    total_quality_points = 0
-    total_units = 0
+    total_grade_points = 0
+    total_credits = 0
 
     print("\nCourse Results:")
     print("---------------------------------------------------------")
-    print("Course Code | Course Title               | Units | Grade")
+    print(f"{'Course Code':12} | {'Course Title':25} | {'Credits':7} | {'Grade'}")
     print("---------------------------------------------------------")
 
-    # Open both CSV and TXT files
-    with open("gradereport.csv", "w") as csv_file, open("gradereport.txt", "w") as txt_file:
-        csv_file.write("Course Code,Course Title,Units,Grade\n")
-        txt_file.write("Course Code | Course Title               | Units | Grade\n")
+    with open(GRADEREPORT_CSV, "w") as csv_file, open(GRADEREPORT_TXT, "w") as txt_file:
+        csv_file.write("Course Code,Course Title,Credits,Grade\n")
+        txt_file.write(f"{'Course Code':12} | {'Course Title':25} | {'Credits':7} | {'Grade'}\n")
         txt_file.write("---------------------------------------------------------\n")
 
         for r in results:
@@ -49,50 +82,29 @@ def calculate_gpa():
                 print(f"Course ID {r['course_id']} not found! Skipping...")
                 continue
 
-            grade_point = grade_to_point(r["grade"])
-            units = int(course["units"])
-            total_quality_points += grade_point * units
-            total_units += units
+            try:
+                credits = float(course.get("units", 0))
+            except (ValueError, TypeError):
+                print(f"Invalid credits for course {course['code']}. Skipping...")
+                continue
 
-            # Print to console
-            print(f"{course['code']:12} | {course['title'][:25]:25} | {units:5} | {r['grade']}")
+            grade_point = grade_to_point(r.get("grade", "F"))
+            total_grade_points += grade_point * credits
+            total_credits += credits
 
-            # Write to TXT
-            txt_file.write(f"{course['code']:12} | {course['title'][:25]:25} | {units:5} | {r['grade']}\n")
-            # Write to CSV
-            csv_file.write(f"{course['code']},{course['title']},{units},{r['grade']}\n")
+            # Print and save to files
+            line_txt = f"{course['code']:12} | {course['title'][:25]:25} | {credits:7} | {r['grade']}"
+            print(line_txt)
+            txt_file.write(line_txt + "\n")
+            csv_file.write(f"{course['code']},{course['title']},{credits},{r['grade']}\n")
 
-    if total_units == 0:
-        print("\nNo valid course units found. Cannot calculate GPA.")
+    if total_credits == 0:
+        print("\nNo valid course credits found. Cannot calculate GPA.")
         return
 
-    gpa = total_quality_points / total_units
-
+    gpa = total_grade_points / total_credits
     print("---------------------------------------------------------")
-    print(f"Total Units: {total_units}")
+    print(f"Total Credits: {total_credits}")
     print(f"GPA: {gpa:.2f}")
     print("---------------------------------------------------------")
-    print("\nGrade report saved to gradereport.csv and gradereport.txt")
-
-def save():
-    """Save course information manually."""
-    code = input("Course code: ")
-    title = input("Course title: ")
-    credit = input("Course credit: ")
-
-    with open("gradereport.csv", "a") as file:
-        file.write(f"{code},{title},{credit},N/A\n")
-
-    print("Saved:", code, title, credit)
-
-
-def grade_to_point(grade):
-    """Convert a letter grade to GPA points."""
-    grade = grade.upper()
-    points = {"A": 5, "B": 4, "C": 3, "D": 2, "E": 1, "F": 0}
-    return points.get(grade, 0)
-
-
-if __name__ == "__main__":
-    calculate_gpa()
-    
+    print(f"\nGrade report saved to {GRADEREPORT_CSV} and {GRADEREPORT_TXT}")

@@ -7,3 +7,9 @@ ID: 6, Name: geza, Department: cs
 ID: 7, Name: alem, Department: is
 ID: 8, Name: bet, Department: cs
 ID: 9, Name: fer, Department: cs
+ID: 10, Name: rahel, Department: computer science
+ID: 10, Name: jerri, Department: cs
+ID: 11, Name: nam, Department: cs
+ID: 12, Name: ger, Department: cs
+ID: 13, Name: weer, Department: cs
+ID: 14, Name: fer, Department: cs
